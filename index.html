@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anognya Rotti | Personal Website</title>
+<meta name="description" content="Personal website of Anognya Rotti, Civil Engineering student at KLS Gogte Institute of Technology, Belagavi.">
+<style>
+  /* ===== Themes: Ocean (default, blue) / Rock / Light ===== */
+  :root{
+    --bg:#0c1230; --card:#18214a; --text:#eef2ff; --muted:#aab6d8;
+    --accent:#38bdf8; --accent2:#a78bfa; --c3:#f472b6; --c4:#fbbf24; --c5:#34d399;
+    --border:#2b3770; --navbg:rgba(12,18,48,.95);
+    --glow1:#1d4ed866; --glow2:#7c3aed66; --onaccent:#0c1230;
+    --rainbow:linear-gradient(90deg,var(--accent),var(--accent2));
+  }
+  :root[data-theme="rock"]{
+    --bg:#0b0b0d; --card:#1a1a1f; --text:#f5f5f5; --muted:#a8a8b3;
+    --accent:#ef4444; --accent2:#f97316; --c3:#ec4899; --c4:#facc15; --c5:#a3e635;
+    --border:#2e2e36; --navbg:rgba(11,11,13,.95);
+    --glow1:#7f1d1d77; --glow2:#7c2d1277; --onaccent:#0b0b0d;
+  }
+  :root[data-theme="light"]{
+    --bg:#fdf8f3; --card:#ffffff; --text:#1f2937; --muted:#6b7280;
+    --accent:#e11d48; --accent2:#7c3aed; --c3:#db2777; --c4:#d97706; --c5:#059669;
+    --border:#e5e7eb; --navbg:rgba(253,248,243,.95);
+    --glow1:#fda4af66; --glow2:#c4b5fd66; --onaccent:#ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;position:relative;overflow-x:hidden}
+  a{color:var(--accent);text-decoration:none}
+
+  /* ===== Navigation (hamburger on phones) ===== */
+  nav{position:sticky;top:0;background:var(--navbg);display:flex;justify-content:space-between;align-items:center;
+      padding:14px 6%;z-index:10;border-bottom:1px solid var(--border)}
+  nav .logo{font-weight:800;font-size:1.2rem;color:var(--accent)}
+  nav ul{list-style:none;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+  nav ul a{color:var(--text);font-size:.95rem}
+  nav ul a:hover{color:var(--accent)}
+  nav ul a.active{color:var(--accent);border-bottom:2px solid var(--accent);padding-bottom:2px}
+  .theme-btn{background:var(--card);color:var(--text);border:1px solid var(--border);
+      border-radius:999px;padding:6px 14px;cursor:pointer;font:inherit;font-size:.85rem}
+  .menu-btn{display:none;background:var(--card);color:var(--text);border:1px solid var(--border);
+      border-radius:10px;width:42px;height:38px;font-size:1.3rem;cursor:pointer}
+
+  /* ===== Hero ===== */
+  header.hero{min-height:85vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;padding:40px 6%;position:relative;isolation:isolate;
+      background:
+        radial-gradient(circle at 18% 14%,var(--glow1),transparent 46%),
+        radial-gradient(circle at 82% 86%,var(--glow2),transparent 50%),
+        linear-gradient(var(--border) 1px,transparent 1px) 0 0/44px 44px,
+        linear-gradient(90deg,var(--border) 1px,transparent 1px) 0 0/44px 44px}
+  .avatar{position:relative;width:170px;height:170px;border-radius:50%;padding:5px;margin-bottom:20px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      animation:float 4s ease-in-out infinite}
+  .avatar img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;border:3px solid var(--bg)}
+  .avatar::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:3px solid var(--accent);animation:ring 2.2s ease-out infinite}
+  .hero h1{font-size:clamp(2rem,6vw,3.4rem);cursor:default;transition:filter .2s}
+  .hero h1 span{color:var(--accent)}
+  .typed{font-size:clamp(1.1rem,3vw,1.6rem);font-weight:700;min-height:2em;margin-top:12px;color:var(--accent)}
+  .caret{display:inline-block;margin-left:2px;color:var(--accent);animation:blink .8s steps(1) infinite}
+  .hero p{color:var(--muted);max-width:620px;margin:14px 0 24px;font-size:1.1rem}
+  .btn{display:inline-block;padding:12px 28px;border-radius:999px;font-weight:700;color:var(--onaccent);
+      background:linear-gradient(90deg,var(--accent),var(--accent2))}
+
+  /* ===== Sections ===== */
+  section{padding:70px 6%;max-width:1100px;margin:auto}
+  section h2{font-size:1.9rem;margin-bottom:28px;position:relative;padding-bottom:10px;width:fit-content;color:var(--text)}
+  section h2::after{content:"";position:absolute;left:0;bottom:0;width:70px;height:4px;border-radius:4px;background:var(--rainbow)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+  .card{--cc:var(--accent);background:color-mix(in srgb,var(--card) 88%,transparent);border-radius:14px;padding:22px;
+      border:1px solid var(--border);border-top:4px solid var(--cc);transition:transform .2s,border-color .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-4px);border-color:var(--cc);box-shadow:0 12px 32px color-mix(in srgb,var(--cc) 32%,transparent)}
+  .card h3{margin-bottom:8px;color:var(--cc)}
+  .card p{color:var(--muted);font-size:.95rem}
+  table{width:100%;border-collapse:collapse;background:color-mix(in srgb,var(--card) 84%,transparent);border-radius:14px;overflow:hidden}
+  tr{--rc:var(--accent)}
+  td{padding:12px 18px;border-bottom:1px solid var(--border)}
+  td:first-child{color:var(--rc);width:38%;font-weight:700;border-left:4px solid var(--rc)}
+  tr:last-child td{border-bottom:none}
+  .tags{display:flex;flex-wrap:wrap;gap:10px}
+  .tags span{--tc:var(--accent);padding:8px 16px;border-radius:999px;font-size:.92rem;font-weight:600;
+      background:color-mix(in srgb,var(--tc) 18%,var(--card));border:1px solid color-mix(in srgb,var(--tc) 65%,transparent)}
+  .timeline{border-left:4px solid var(--accent);padding-left:20px}
+  .timeline .item{--tc:var(--accent);margin-bottom:22px}
+  .timeline .year{display:inline-block;padding:1px 12px;border-radius:999px;font-weight:700;font-size:.85rem;margin-bottom:4px;
+      color:var(--tc);background:color-mix(in srgb,var(--tc) 20%,transparent)}
+  .timeline p{color:var(--muted)}
+  .socials{display:flex;gap:18px;margin-top:24px;flex-wrap:wrap}
+  footer{text-align:center;padding:26px;color:var(--muted);font-size:.9rem;border-top:4px solid;
+      border-image:var(--rainbow) 1}
+
+  /* ===== Intro splash ===== */
+  #splash{position:fixed;inset:0;z-index:1000;color:#fff;display:flex;flex-direction:column;align-items:center;
+      justify-content:center;text-align:center;padding:32px 26px;transition:opacity .7s ease,transform .7s ease;
+      background:radial-gradient(ellipse at 18% 12%,#1e3a8aaa,transparent 55%),
+                 radial-gradient(ellipse at 85% 90%,#7c3aedaa,transparent 55%),
+                 #05070f}
+  #splash.gone{opacity:0;transform:scale(1.15);pointer-events:none}
+  #splash .intro{font-size:clamp(.9rem,3vw,1.4rem);letter-spacing:.32em;text-transform:uppercase;color:#cbd5e1;
+      opacity:0;animation:fadeup .8s .3s forwards}
+  #splash .big{font-size:clamp(2.3rem,11.5vw,8rem);font-weight:900;letter-spacing:.03em;line-height:1.05;margin:16px 0 14px;
+      background:linear-gradient(90deg,#38bdf8,#a78bfa,#38bdf8);background-size:300% auto;
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      filter:drop-shadow(0 0 22px rgba(167,139,250,.55));
+      opacity:0;transform:scale(3);animation:slam .6s 1.1s cubic-bezier(.2,1.4,.3,1) forwards,shimmer 5s 1.8s linear infinite}
+  #splash .name{font-size:clamp(1.05rem,4vw,1.9rem);font-weight:700;opacity:0;animation:fadeup .8s 1.9s forwards}
+  #splash .legend{font-size:clamp(.92rem,2.8vw,1.25rem);color:#cbd5e1;margin-top:16px;line-height:1.6;opacity:0;animation:fadeup .8s 2.6s forwards}
+  #splash .legend em{color:#fbbf24;font-style:normal;font-weight:700}
+  #splash .enter{font:inherit;font-size:1rem;cursor:pointer;margin-top:38px;padding:14px 36px;border:2px solid transparent;
+      border-radius:999px;font-weight:800;letter-spacing:.2em;color:#fff;opacity:0;
+      background:linear-gradient(#0b1126,#0b1126) padding-box,linear-gradient(90deg,#38bdf8,#a78bfa) border-box;
+      animation:fadeup .8s 3.6s forwards,pulse 1.4s 4.4s infinite}
+  @keyframes fadeup{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  @keyframes slam{to{opacity:1;transform:scale(1)}}
+  @keyframes pulse{50%{box-shadow:0 0 0 12px transparent,0 0 26px #a78bfa}}
+
+  /* ===== Success target ===== */
+  .target-wrap{display:flex;align-items:center;gap:36px;flex-wrap:wrap;margin-top:44px;justify-content:center}
+  .target{position:relative;width:240px;height:240px;border-radius:50%;background:#fff;color:#111;flex:none;
+      box-shadow:0 0 30px color-mix(in srgb,var(--accent) 45%,transparent)}
+  .target .ring2{position:absolute;inset:36px;border-radius:50%;background:#38bdf8}
+  .target .ring3{position:absolute;inset:36px;border-radius:50%;background:#facc15}
+  .target .lbl{position:absolute;left:50%;transform:translateX(-50%);color:#111;z-index:3;white-space:nowrap;
+      font-weight:900;letter-spacing:.14em;font-size:.62rem}
+  .target .fail{top:12px}
+  .target .med{top:50px;font-size:.58rem}
+  .target .suc{top:92px;font-size:.52rem;letter-spacing:.1em}
+  .target .arrow{position:absolute;left:50%;top:63%;width:8px;height:8px;border-radius:50%;background:#e11d48;
+      box-shadow:0 0 0 3px #fff,0 0 16px 6px #e11d48;transform:translate(-50%,-50%) scale(0);
+      transition:transform .5s .6s cubic-bezier(.2,1.8,.3,1)}
+  .target.show .arrow{transform:translate(-50%,-50%) scale(1)}
+  .target-text{max-width:360px}
+  .target-text h3{margin-bottom:8px;color:var(--accent);width:fit-content}
+  .target-text p{color:var(--muted)}
+
+  /* ===== Background layers ===== */
+  .netcanvas{position:fixed;inset:0;z-index:-1;pointer-events:none}
+  .cursorglow{position:fixed;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:-1;left:0;top:0;
+      background:radial-gradient(circle,var(--accent) 0%,transparent 65%);opacity:.2;transform:translate(-999px,-999px)}
+  .confetti{position:fixed;inset:0;pointer-events:none;z-index:200}
+  .orb{position:fixed;border-radius:50%;opacity:.28;z-index:-1;pointer-events:none;will-change:transform;animation:drift 16s ease-in-out infinite alternate}
+  .orb.one{width:560px;height:560px;background:radial-gradient(circle,var(--accent),transparent 68%);top:5%;left:-220px}
+  .orb.two{width:620px;height:620px;background:radial-gradient(circle,var(--accent2),transparent 68%);top:45%;right:-260px;animation-delay:-5s}
+  @keyframes drift{from{translate:0 0}to{translate:70px -60px}}
+  #progress{position:fixed;top:0;left:0;height:4px;width:0;z-index:100;background:var(--rainbow);box-shadow:0 0 12px var(--accent)}
+
+  /* translucent character pictures, one by one down the page */
+  .pics{position:absolute;inset:0;overflow:hidden;z-index:-1;pointer-events:none}
+  .pic{position:absolute;height:clamp(320px,64vh,680px);width:auto;opacity:0;--po:.46;--sx:60px;
+      transform:translateX(var(--sx));transition:opacity 1.4s ease,transform 1.4s cubic-bezier(.2,.8,.2,1);
+      animation:bob 10s ease-in-out infinite alternate;
+      -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 91%,transparent 100%);
+      mask-image:linear-gradient(180deg,transparent 0,#000 9%,#000 91%,transparent 100%)}
+  .pic.in{opacity:var(--po);transform:none}
+  .pic.p1{right:1%;top:18%} .pic.p2{left:0;top:34%;--sx:-60px;animation-delay:-3s}
+  .pic.p3{right:2%;top:55%;animation-delay:-6s} .pic.p4{left:1%;top:76%;--sx:-60px;animation-delay:-8s}
+  @keyframes bob{from{translate:0 -14px}to{translate:0 14px}}
+
+  /* ===== Typewriter, glitch, marquee ===== */
+  @keyframes blink{50%{opacity:0}}
+  .hero h1:hover{animation:glitch .35s steps(2) infinite}
+  @keyframes glitch{
+    0%{filter:drop-shadow(4px 0 var(--accent)) drop-shadow(-4px 0 var(--accent2));transform:translate(0)}
+    25%{filter:drop-shadow(-4px 2px var(--accent)) drop-shadow(4px -2px var(--accent2));transform:translate(-3px,1px)}
+    50%{filter:drop-shadow(3px -2px var(--accent)) drop-shadow(-3px 2px var(--accent2));transform:translate(3px,-1px)}
+    75%{filter:drop-shadow(-3px 0 var(--accent)) drop-shadow(3px 0 var(--accent2));transform:translate(-2px,0)}
+    100%{filter:none;transform:none}
+  }
+  /* ===== Reveal on scroll ===== */
+  .reveal{opacity:0;transform:translateY(60px) scale(.94);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+  .reveal.from-left{transform:translateX(-80px)}
+  .reveal.from-right{transform:translateX(80px)}
+  .reveal.pop{transform:scale(.3) rotate(-8deg)}
+  .reveal.show{opacity:1;transform:none}
+  .reveal.done{transition:transform .2s,border-color .2s,opacity .2s,box-shadow .2s}
+  section h2.reveal::after{width:0;transition:width .9s ease .4s}
+  section h2.reveal.show::after{width:70px}
+  @keyframes float{50%{transform:translateY(-14px)}}
+  @keyframes ring{from{transform:scale(1);opacity:.8}to{transform:scale(1.7);opacity:0}}
+  @keyframes shimmer{to{background-position:300% center}}
+  .hero .avatar,.hero h1,.hero p,.hero .btn{will-change:translate,opacity}
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .avatar,.avatar::after,.orb,.pic{animation:none}
+    .pic{opacity:var(--po);transform:none;transition:none}
+  }
+
+  /* ===== Phones ===== */
+  @media(max-width:640px){
+    .menu-btn{display:block}
+    nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;
+        background:var(--navbg);border-bottom:1px solid var(--border);padding:8px 6% 16px}
+    nav ul.open{display:flex}
+    nav ul li{width:100%}
+    nav ul a{display:block;padding:11px 0;font-size:1.02rem}
+    header.hero{min-height:auto;padding:40px 6% 56px}
+    .avatar{width:142px;height:142px}
+    .hero p{font-size:1rem;margin:12px 0 22px}
+    section{padding:48px 6%}
+    section h2{font-size:1.6rem;margin-bottom:22px}
+    td{padding:10px 12px;font-size:.93rem}
+    td:first-child{width:42%}
+    .pic{height:46vh;--po:.34}
+    .pic.p1{right:-14%} .pic.p2{left:-16%} .pic.p3{right:-8%} .pic.p4{left:-14%}
+    .target-wrap{flex-direction:column;gap:22px;text-align:center}
+    .target{width:260px;height:260px}
+    .target .ring2{inset:40px} .target .ring3{inset:40px}
+    .target .fail{top:13px;font-size:.7rem} .target .med{top:55px;font-size:.62rem} .target .suc{top:100px;font-size:.56rem}
+    .target-text h3{margin-inline:auto}
+    #splash .big{margin:14px 0 12px}
+    #splash .enter{margin-top:32px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Intro splash: the page waits here until SUIT UP is pressed -->
+<div id="splash" role="dialog" aria-label="Intro">
+  <div class="intro">Welcome to the</div>
+  <div class="big">AWESOME</div>
+  <div class="name">website of Anognya Rotti</div>
+  <div class="legend">It's going to be legen... <em>(wait for it)</em> ...dary!</div>
+  <button class="enter" id="suitUp" type="button">SUIT UP ▶</button>
+</div>
+
+<div class="cursorglow" id="cursorGlow"></div>
+<div id="progress"></div>
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+<!-- Translucent pictures, one below the other down the page -->
+<div class="pics" aria-hidden="true">
+  <img class="pic p1" src="pic1.webp" alt="">
+  <img class="pic p2" src="pic2.webp" alt="">
+  <img class="pic p3" src="pic3.webp" alt="">
+  <img class="pic p4" src="pic4.webp" alt="">
+</div>
+
+<nav>
+  <div class="logo">Anognya Rotti</div>
+  <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+  <ul id="menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#social">Social</a></li>
+    <li><a href="#interests">Interests</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><button class="theme-btn" id="themeBtn" type="button">🎨 Theme</button></li>
+  </ul>
+</nav>
+
+<header class="hero" id="home">
+  <div class="avatar"><img src="photo.jpg" alt="Anognya Rotti"></div>
+  <h1>Hi, I'm <span>Anognya Rotti</span></h1>
+  <div class="typed"><span id="typed"></span><span class="caret">|</span></div>
+  <p>1st semester Civil Engineering student at KLS Gogte Institute of Technology, Belagavi (Belgaum), Karnataka. Skater, taekwondo blue belt, theatre enthusiast and rock music fan.</p>
+  <a class="btn" href="#about">Know more about me</a>
+</header>
+
+<section id="about">
+  <h2>About Me (Bio Data)</h2>
+  <p style="margin-bottom:22px;color:var(--muted)">
+    I am a first-year Civil Engineering student from Hosur, Karnataka. I enjoy balancing academics with sports, theatre and music, and I like learning new languages. I am currently learning German. I want to build a career where I can design and create things that last.
+  </p>
+  <table>
+    <tr><td>Full Name</td><td>Anognya Rotti</td></tr>
+    <tr><td>Date of Birth</td><td>22 October 2008</td></tr>
+    <tr><td>Hometown</td><td>Hosur, Karnataka</td></tr>
+    <tr><td>Mother Tongue</td><td>Kannada</td></tr>
+    <tr><td>Languages Known</td><td>Kannada, English, Hindi (learning German)</td></tr>
+    <tr><td>Current Course</td><td>B.E. Civil Engineering, 1st Semester (2026-27)</td></tr>
+    <tr><td>College</td><td>KLS Gogte Institute of Technology, Belagavi</td></tr>
+    <tr><td>Studying In</td><td>Belagavi (Belgaum), Karnataka</td></tr>
+    <tr><td>Pre-University (PUC)</td><td>Shri Chaitanya PU College, Belagavi, 2026, 75.4%</td></tr>
+    <tr><td>School (ICSE)</td><td>Blooming Buds ICSE School, Belagavi, 2024, 65%</td></tr>
+    <tr><td>Email</td><td><a href="mailto:anognyarotti@gmail.com">anognyarotti@gmail.com</a></td></tr>
+  </table>
+</section>
+
+<section id="social">
+  <h2>Social Activities</h2>
+  <div class="grid">
+    <div class="card"><h3>🙏 Seva at the Gurudwara</h3><p>Every Sunday I volunteer at the Gurudwara and help keep the premises clean, as a way of giving back to the community.</p></div>
+    <div class="card"><h3>🎭 College Drama Team</h3><p>I am an active member of my college drama team, working with fellow students on performances and representing the college at inter-college fests.</p></div>
+  </div>
+</section>
+
+<section id="interests">
+  <h2>Interests</h2>
+  <div class="tags">
+    <span>🎮 RPG Games</span>
+    <span>🎸 Rock Music</span>
+    <span>🎬 Hollywood Movies</span>
+    <span>🎭 Theatre &amp; Drama</span>
+    <span>🏗️ Civil Engineering</span>
+    <span>🇩🇪 Learning German</span>
+  </div>
+</section>
+
+<section id="achievements">
+  <h2>Achievements</h2>
+  <div class="timeline">
+    <div class="item"><div class="year">2018</div><h3>1st Place, State Level Skating Competition</h3><p>Won first place at the state level skating competition.</p></div>
+    <div class="item"><div class="year">2020</div><h3>Blue Belt in Taekwondo</h3><p>Earned the blue belt in the martial art of taekwondo.</p></div>
+    <div class="item"><div class="year">2026</div><h3>3rd Place, National Level Fest at BITS Goa</h3><p>Performed with my college drama team at a national level fest at BITS Goa and secured third place.</p></div>
+    <div class="item"><div class="year">2026</div><h3>1st Place, Nukkad Natak (Street Play), Lingaraj College</h3><p>My college drama team won first place in the Nukkad Natak (street play) competition at the Lingaraj College Literary Fest, Belagavi.</p></div>
+  </div>
+  <div class="target-wrap">
+    <div class="target" id="target" aria-hidden="true">
+      <span class="lbl fail">FAILURE</span><span class="lbl med">MEDIOCRITY</span><span class="lbl suc">SUCCESS</span>
+      <div class="ring2"><div class="ring3"></div></div>
+      <div class="arrow"></div>
+    </div>
+    <div class="target-text">
+      <h3>Aim: Success. Always.</h3>
+      <p>State champion, blue belt and a national podium finish. Failure and mediocrity were never on the target.</p>
+    </div>
+  </div>
+</section>
+
+<section id="hobbies">
+  <h2>Hobbies</h2>
+  <div class="grid">
+    <div class="card"><h3>🎮 Gaming</h3><p>I love playing online games, especially RPGs, with my friends.</p></div>
+    <div class="card"><h3>🎸 Jamming</h3><p>I enjoy jamming with friends and making music together.</p></div>
+    <div class="card"><h3>🤘 Listening to Rock</h3><p>Rock music is my go-to for studying, relaxing and everything in between.</p></div>
+    <div class="card"><h3>🎬 Watching Movies</h3><p>I enjoy watching Hollywood movies in my free time.</p></div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Contact Me</h2>
+  <p style="color:var(--muted)">I'd love to hear from you. Send me an email or find me on Instagram.</p>
+  <div class="socials">
+    <a class="btn" href="mailto:anognyarotti@gmail.com">✉️ Email Me</a>
+    <a class="btn" href="https://www.instagram.com/unknognya" target="_blank" rel="noopener">📷 Instagram</a>
+  </div>
+</section>
+
+<footer>© 2026 Anognya Rotti. Created for the Essentials of IT course project activity.</footer>
+
+<script>
+  // Theme button cycles: Ocean (default, blue) -> Rock -> Light
+  var themes = ["ocean", "rock", "light"];
+  var current = 0;
+  document.getElementById("themeBtn").addEventListener("click", function () {
+    current = (current + 1) % themes.length;
+    if (themes[current] === "ocean") document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme", themes[current]);
+  });
+
+  // Phone menu (hamburger)
+  (function () {
+    var btn = document.getElementById("menuBtn"), menu = document.getElementById("menu");
+    function setOpen(open) {
+      menu.classList.toggle("open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "✕" : "☰";
+    }
+    btn.addEventListener("click", function (e) { e.stopPropagation(); setOpen(!menu.classList.contains("open")); });
+    menu.addEventListener("click", function (e) { if (e.target.tagName === "A") setOpen(false); });
+    document.addEventListener("click", function (e) { if (!menu.contains(e.target) && e.target !== btn) setOpen(false); });
+  })();
+
+  // ===== Scroll effects =====
+  (function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // 1. Reveal-on-scroll with staggered delays and different directions
+    var targets = document.querySelectorAll(
+      "section h2, section > p, .card, .timeline .item, .tags span, table tr, .socials a"
+    );
+    targets.forEach(function (el) {
+      el.classList.add("reveal");
+      var siblings = Array.prototype.slice.call(el.parentNode.children);
+      var i = siblings.indexOf(el);
+      el.style.transitionDelay = Math.min(i * 0.12, 0.8) + "s";
+      if (el.matches(".timeline .item")) el.classList.add(i % 2 ? "from-right" : "from-left");
+      if (el.matches("table tr")) el.classList.add(i % 2 ? "from-right" : "from-left");
+      if (el.matches(".tags span")) el.classList.add("pop");
+    });
+    var revealObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add("show");
+          revealObs.unobserve(e.target);
+          setTimeout(function () {                       // after the entrance, switch to quick hover transitions
+            e.target.style.transitionDelay = "0s";
+            e.target.classList.add("done");
+          }, 1500);
+        }
+      });
+    }, { threshold: 0.15 });
+    targets.forEach(function (el) { revealObs.observe(el); });
+
+    // 1b. Pictures fade in one by one as you scroll down
+    var picObs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); picObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".pic").forEach(function (p) { picObs.observe(p); });
+
+    // 2. Active nav link highlight
+    var links = document.querySelectorAll("nav ul a[href^='#']");
+    var secObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          links.forEach(function (a) { a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id); });
+        }
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    document.querySelectorAll("section[id]").forEach(function (s) { secObs.observe(s); });
+
+    // 3. Scroll progress bar, hero parallax and floating background orbs
+    var bar = document.getElementById("progress");
+    var hero = document.querySelector(".hero");
+    var heroItems = [
+      [document.querySelector(".hero .avatar"), 0.25],
+      [document.querySelector(".hero h1"), 0.40],
+      [document.querySelector(".hero p"), 0.55],
+      [document.querySelector(".hero .btn"), 0.70]
+    ];
+    var orb1 = document.querySelector(".orb.one"), orb2 = document.querySelector(".orb.two");
+    var ticking = false;
+    function update() {
+      var y = window.scrollY;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
+      if (!reduce) {
+        orb1.style.transform = "translate(" + (y * 0.15) + "px," + (-y * 0.25) + "px)";
+        orb2.style.transform = "translate(" + (-y * 0.15) + "px," + (-y * 0.35) + "px)";
+      }
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+
+    // 4. 3D tilt on cards (mouse devices only)
+    if (!reduce && window.matchMedia("(hover: hover)").matches) {
+      document.querySelectorAll(".card").forEach(function (card) {
+        card.addEventListener("mousemove", function (e) {
+          var r = card.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - 0.5;
+          var y = (e.clientY - r.top) / r.height - 0.5;
+          card.style.transform = "perspective(700px) rotateX(" + (-y * 14) + "deg) rotateY(" + (x * 14) + "deg) translateY(-6px)";
+        });
+        card.addEventListener("mouseleave", function () { card.style.transform = ""; });
+      });
+    }
+  })();
+</script>
+
+<script>
+  // More effects: particle network, cursor glow, typewriter, marquee, confetti, jets, splash
+  (function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var small = window.innerWidth < 700;
+    var root = document.documentElement;
+    function cssVar(n) { return getComputedStyle(root).getPropertyValue(n).trim() || "#38bdf8"; }
+
+    // ---- 1. Particle network that reacts to the mouse ----
+    var net = document.createElement("canvas");
+    net.className = "netcanvas";
+    document.body.prepend(net);
+    var nctx = net.getContext("2d"), W = 0, H = 0, pts = [], mouse = { x: -999, y: -999 };
+    function resize() {
+      W = net.width = window.innerWidth; H = net.height = window.innerHeight;
+      var n = W < 700 ? 24 : 58;
+      pts = [];
+      for (var i = 0; i < n; i++) {
+        pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .6, vy: (Math.random() - .5) * .6 });
+      }
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", function (e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+    var colour = cssVar("--accent"), frame = 0;
+    function drawNet() {
+      if (!root.classList.contains("entered")) { requestAnimationFrame(drawNet); return; }   // idle until SUIT UP
+      if (frame++ % 30 === 0) colour = cssVar("--accent");
+      nctx.clearRect(0, 0, W, H);
+      nctx.fillStyle = colour; nctx.strokeStyle = colour;
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+        var mdx = mouse.x - p.x, mdy = mouse.y - p.y, md = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (md < 160) {
+          p.x += mdx * 0.01; p.y += mdy * 0.01;
+          nctx.globalAlpha = (1 - md / 160) * .8;
+          nctx.beginPath(); nctx.moveTo(p.x, p.y); nctx.lineTo(mouse.x, mouse.y); nctx.stroke();
+        }
+        nctx.globalAlpha = .8;
+        nctx.beginPath(); nctx.arc(p.x, p.y, 2, 0, 6.283); nctx.fill();
+        for (var j = i + 1; j < pts.length; j++) {
+          var q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d2 = dx * dx + dy * dy;
+          if (d2 < 14400) {
+            nctx.globalAlpha = (1 - Math.sqrt(d2) / 120) * .45;
+            nctx.beginPath(); nctx.moveTo(p.x, p.y); nctx.lineTo(q.x, q.y); nctx.stroke();
+          }
+        }
+      }
+      nctx.globalAlpha = 1;
+      requestAnimationFrame(drawNet);
+    }
+    if (!reduce) drawNet();
+
+    // ---- 2. Glow that follows the cursor (eased) ----
+    var glow = document.getElementById("cursorGlow");
+    if (!reduce && window.matchMedia("(hover: hover)").matches) {
+      var gx = -999, gy = -999, tx = -999, ty = -999;
+      window.addEventListener("mousemove", function (e) {
+        tx = e.clientX - 170; ty = e.clientY - 170;
+        if (gx === -999) { gx = tx; gy = ty; }
+      });
+      (function glide() {
+        if (Math.abs(tx - gx) > 0.2 || Math.abs(ty - gy) > 0.2) {
+          gx += (tx - gx) * 0.14; gy += (ty - gy) * 0.14;
+          glow.style.transform = "translate3d(" + gx + "px," + gy + "px,0)";
+        }
+        requestAnimationFrame(glide);
+      })();
+    } else { glow.style.display = "none"; }
+
+    // ---- 3. Typewriter line in the hero ----
+    var phrases = [
+      "Civil Engineering student 🏗️",
+      "State level skating champion 🛼",
+      "Taekwondo blue belt 🥋",
+      "Drama team, 3rd at BITS Goa 🎭",
+      "Nukkad natak champion, 1st place 🏆",
+      "RPG gamer & rock fan 🎸",
+      "Legen... wait for it... dary! 🕴️",
+      "Challenge accepted. 🤝",
+      "Is he cool? Wait for it... YES. Totally. 😎"
+    ];
+    var tEl = document.getElementById("typed"), pi = 0, ci = 0, deleting = false;
+    var phraseChars = phrases.map(function (s) { return Array.from(s); });   // whole characters, so emoji never break
+    function typeStep() {
+      var chars = phraseChars[pi], delay;
+      if (!deleting) {
+        ci++;
+        tEl.textContent = chars.slice(0, ci).join("");
+        delay = 65;
+        if (chars[ci - 1] === ".") delay = 280;
+        if (ci === chars.length) { deleting = true; delay = 1700; }
+      } else {
+        ci--;
+        tEl.textContent = chars.slice(0, ci).join("");
+        delay = 28;
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; delay = 400; }
+      }
+      setTimeout(typeStep, delay);
+    }
+    if (reduce) { tEl.textContent = phrases[0]; }   // otherwise it starts after SUIT UP
+
+    // ---- 5. Confetti burst wherever you click or tap ----
+    var cc = document.createElement("canvas");
+    cc.className = "confetti";
+    document.body.appendChild(cc);
+    var cctx = cc.getContext("2d"), bits = [], running = false;
+    function sizeConfetti() { cc.width = window.innerWidth; cc.height = window.innerHeight; }
+    sizeConfetti();
+    window.addEventListener("resize", sizeConfetti);
+    function burst(x, y) {
+      var cols = [cssVar("--accent"), cssVar("--accent2"), "#ffffff"];
+      for (var i = 0; i < 40; i++) {
+        var a = Math.random() * 6.283, s = 3 + Math.random() * 7;
+        bits.push({ x: x, y: y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 4,
+                    w: 6 + Math.random() * 6, h: 4 + Math.random() * 4,
+                    r: Math.random() * 6, vr: (Math.random() - .5) * .4,
+                    c: cols[i % cols.length], life: 1 });
+      }
+      if (!running) { running = true; requestAnimationFrame(tick); }
+    }
+    function tick() {
+      cctx.clearRect(0, 0, cc.width, cc.height);
+      bits = bits.filter(function (b) { return b.life > 0 && b.y < cc.height + 20; });
+      bits.forEach(function (b) {
+        b.vy += 0.25; b.x += b.vx; b.y += b.vy; b.vx *= 0.99; b.r += b.vr; b.life -= 0.008;
+        cctx.save(); cctx.globalAlpha = Math.max(b.life, 0);
+        cctx.translate(b.x, b.y); cctx.rotate(b.r);
+        cctx.fillStyle = b.c; cctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h);
+        cctx.restore();
+      });
+      if (bits.length) requestAnimationFrame(tick); else running = false;
+    }
+    if (!reduce) { window.addEventListener("click", function (e) { burst(e.clientX, e.clientY); }); }
+
+    // ---- 6. Splash: stays until SUIT UP is pressed ----
+    var splash = document.getElementById("splash"), closed = false;
+    function closeSplash() {
+      if (closed) return; closed = true;
+      root.style.overflow = "";
+      root.classList.add("entered");
+      if (!reduce) { typeStep(); }
+      splash.classList.add("gone");
+      setTimeout(function () { splash.style.display = "none"; }, 800);
+      if (!reduce) burst(window.innerWidth / 2, window.innerHeight / 2);
+    }
+    if (reduce) { splash.style.display = "none"; closed = true; root.classList.add("entered"); }
+    else { root.style.overflow = "hidden"; }                   // the page stays put until SUIT UP
+    document.getElementById("suitUp").addEventListener("click", closeSplash);
+
+    // ---- 8. Success target: arrow lands in the bullseye ----
+    var tgt = document.getElementById("target");
+    new IntersectionObserver(function (es, ob) {
+      es.forEach(function (e) { if (e.isIntersecting) { tgt.classList.add("show"); ob.disconnect(); } });
+    }, { threshold: 0.5 }).observe(tgt);
+  })();
+</script>
+</body>
+</html>
